@@ -1,68 +1,38 @@
-# 💳 Credit Card Fraud Detection using Machine Learning
+# Credit Card Fraud Detection
 
-## 📖 About the Project
-
-As online transactions continue to grow, detecting fraudulent credit card transactions has become an important machine learning problem. One of the biggest challenges is that fraud cases are extremely rare compared to normal transactions, making the dataset highly imbalanced.
-
-In this project, I built a machine learning model to identify fraudulent credit card transactions using different classification algorithms. I explored the dataset, handled the class imbalance using **SMOTE**, trained multiple models, and compared their performance using appropriate evaluation metrics.
-
-This project helped me understand the complete workflow of a real-world machine learning project—from data preprocessing to model evaluation.
+This is my machine learning project where I tried to detect fraudulent credit card transactions. I made this project to learn how ML works on real world data.
 
 ---
 
-## 🎯 Objectives
+## About
 
-- Explore and understand the credit card transaction dataset.
-- Analyze the imbalance between fraudulent and genuine transactions.
-- Apply SMOTE to balance the training dataset.
-- Train and compare multiple machine learning models.
-- Evaluate each model using metrics suitable for imbalanced datasets.
-- Identify the best-performing model for fraud detection.
+So the problem is that fraud transactions are very rare in the dataset, only around 0.17% of all transactions are fraud. Because of this the dataset is highly imbalanced and normal models will just predict everything as genuine and still get 99% accuracy which is wrong.
+
+To fix this I used SMOTE to balance the training data and then trained 3 different models and compared them.
 
 ---
 
-## 📂 Dataset
+## Dataset
 
-This project uses the **Credit Card Fraud Detection** dataset from Kaggle.
+I used the Credit Card Fraud Detection dataset from Kaggle.
 
-### Dataset Summary
+- Total rows: 284,807
+- Fraud cases: 492
+- Genuine cases: 284,315
 
-- **Total Transactions:** 284,807
-- **Legitimate Transactions:** 284,315
-- **Fraudulent Transactions:** 492
-
-The dataset is highly imbalanced:
-
-- Genuine Transactions → **99.83%**
-- Fraudulent Transactions → **0.17%**
-
-This imbalance makes fraud detection a challenging classification problem and highlights the importance of using techniques like SMOTE.
+The features are mostly PCA components (V1 to V28) so I dont know what they actually represent. There is also Time, Amount and Class column.
 
 ---
 
-## 🛠️ Technologies Used
+## Project Folder Structure
 
-- Python
-- VS Code
-- Jupyter Notebook
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- Imbalanced-learn (SMOTE)
-- XGBoost
-- Joblib
-
----
-
-## 📁 Project Structure
-
-```text
+```
 Credit_Card_Fraud_Detection/
 │
 ├── dataset/
+│   └── creditcard.csv
 ├── notebook/
+│   └── Credit_Card_Fraud_Detection.ipynb
 ├── image/
 ├── models/
 ├── report/
@@ -73,148 +43,109 @@ Credit_Card_Fraud_Detection/
 
 ---
 
-## 🔄 Project Workflow
+## What I did step by step
 
-✔ Load and explore the dataset
+1. Loaded the dataset and explored it
+2. Checked null values and duplicates (there were 1081 duplicate rows, removed them)
+3. Plotted class distribution, amount and time graphs
+4. Scaled the features using StandardScaler
+5. Split data into train and test (80/20)
+6. Applied SMOTE only on training data to balance classes
+7. Trained 3 models
+8. Evaluated and compared all models
+9. Saved the models
 
-✔ Perform data cleaning and remove duplicate records
+---
 
-✔ Analyze class distribution
+## Models
 
-✔ Scale the features
-
-✔ Split the dataset into training and testing sets
-
-✔ Handle class imbalance using SMOTE
-
-✔ Train three machine learning models
-
+I used these 3 models:
 - Logistic Regression
 - Random Forest
 - XGBoost
 
-✔ Evaluate each model using:
+---
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- Confusion Matrix
-- ROC-AUC Score
+## Results
 
-✔ Compare model performance
+| Model | Accuracy | Precision | Recall | F1 Score |
+|---|---|---|---|---|
+| Logistic Regression | 0.9737 | 0.0530 | 0.8737 | 0.1000 |
+| Random Forest | 0.9994 | 0.8875 | 0.7474 | 0.8114 |
+| XGBoost | 0.9947 | 0.2192 | 0.8421 | 0.3478 |
 
-✔ Save the trained models
+Random Forest gave the best F1 Score so I picked it as the best model.
+
+I also learned that for fraud detection recall is more important than accuracy because missing a fraud transaction is worse than flagging a genuine one.
 
 ---
 
-## 🤖 Models Used
-
-| Model | Purpose |
-|--------|---------|
-| Logistic Regression | Baseline classification model |
-| Random Forest | Ensemble learning model |
-| XGBoost | Gradient boosting model for improved performance |
-
----
-
-## 📊 Results
-
-	Model	            Accuracy     Precision	    Recall	     F1 Score
-1	Random Forest	    0.999418	 0.887500      0.747368	     0.811429
-2	XGBoost	            0.994713     0.219178	   0.842105	     0.347826
-0	Logistic Regression	0.973672     0.053035      0.873684	     0.100000
-
-
-> **Best Performing Model:** Random Forest was selected as the best-performing model because it achieved the highest F1 Score (0.8114), the highest Precision (0.8875), and the highest Accuracy (99.94%)
-
----
-
-## 📷 Visualizations
+## Graphs
 
 ### Class Distribution
-
-![Class Distribution](image/class_distribution.png)
+![class distribution](image/class_distribution.png)
 
 ### ROC Curve
+![roc curve](image/roc_curve.png)
 
-![ROC Curve](image/roc_curve.png)
+### Confusion Matrix - Logistic Regression
+![lr](image/confusion_matrix_lr.png)
 
-### Logistic Regression Confusion Matrix
+### Confusion Matrix - Random Forest
+![rf](image/confusion_matrix_rf.png)
 
-![Logistic Regression](image/confusion_matrix_lr.png)
-
-### Random Forest Confusion Matrix
-
-![Random Forest](image/confusion_matrix_rf.png)
-
-### XGBoost Confusion Matrix
-
-![XGBoost](image/confusion_matrix_xgb.png)
+### Confusion Matrix - XGBoost
+![xgb](image/confusion_matrix_xgb.png)
 
 ---
 
-## 💡 What I Learned
+## Libraries used
 
-Working on this project helped me gain practical experience with:
-
-- Handling highly imbalanced datasets
-- Using SMOTE for oversampling
-- Training and evaluating multiple machine learning models
-- Choosing evaluation metrics beyond accuracy
-- Comparing model performance
-- Saving trained models for future use
-
-This project strengthened my understanding of the complete machine learning workflow and improved my confidence in building end-to-end ML projects.
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- scikit-learn
+- xgboost
+- imbalanced-learn
+- joblib
 
 ---
 
-## 🚀 Future Improvements
+## How to run
 
-Some improvements I would like to explore in the future include:
-
-- Hyperparameter tuning using GridSearchCV
-- Cross-validation for better model evaluation
-- Building an interactive Streamlit web application
-- Real-time fraud prediction
-- Model deployment using cloud services
-
----
-
-## ▶️ How to Run the Project
-
-### Clone the repository
+First clone the repo and install requirements:
 
 ```bash
-git clone <repository-link>
-```
-
-### Navigate to the project folder
-
-```bash
+git clone <your repo link>
 cd Credit_Card_Fraud_Detection
-```
-
-### Install dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-### Run the notebook
+Then download the dataset from Kaggle and put creditcard.csv inside the dataset folder.
 
-Open `Credit_Card_Fraud_Detection.ipynb` using Jupyter Notebook or VS Code and execute the cells in order.
-
----
-
-## 👩‍💻 About Me
-
-Hi! I'm **Shreya Gupta**, a B.Tech Computer Science Engineering student with a strong interest in **Data Analytics, Data Science, and Machine Learning**.
-
-I'm continuously learning by building hands-on projects and exploring how data can be used to solve real-world problems.
-
-I'm always open to learning, collaborating, and improving my skills.
+Then open the notebook and run all cells.
 
 ---
 
-⭐ If you found this project interesting, consider giving it a star!
+## What I learned from this project
+
+- how to handle imbalanced data using SMOTE
+- why accuracy is not always a good metric
+- difference between precision and recall
+- how to compare multiple models
+- how to save models using joblib
+
+---
+
+## Future ideas
+
+- try hyperparameter tuning
+- make a simple web app using streamlit
+- try other models like SVM or LightGBM
+
+---
+
+## About me
+
+I am Shreya Gupta, a B.Tech Computer Science student. I built this project to improve my understanding of machine learning, practice working with real-world datasets, and strengthen my practical skills by implementing different ML models from scratch.
